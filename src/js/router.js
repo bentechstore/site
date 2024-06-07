@@ -1,10 +1,13 @@
 import { Home } from './views/home.js';
+import { CartView } from './views/cart.js';
 
 export class Router {
-    constructor(app) {
+    constructor(app, cart) {
         this.app = app;
+        this.cart = cart;
         this.routes = {
             '/': Home,
+            '/carrinho': CartView,
         };
     }
 
@@ -17,6 +20,6 @@ export class Router {
         const path = window.location.hash.slice(1) || '/';
         const Page = this.routes[path] || Home;
         this.app.innerHTML = '';
-        this.app.appendChild(new Page().render());
+        this.app.appendChild(new Page(this.cart).render());
     }
 }
